@@ -4,13 +4,16 @@ export default{
   theme: {
     extend: {
       colors: {
-        //نفس البالتة تُستخدم في الأنظمة الخمسة كلها (عام/أدمن/مدرس/طالب/توظيف)*/
+        // الهوية البصرية الجديدة — نفس أسماء الكلاسات القديمة (primary/accent/surface)
+        // بس بقيم جديدة، عشان أي مكون سبق وكتبناه (Navbar, Footer, Button, DashboardLayout)
+        // ياخذ الألوان الجديدة تلقائياً بدون ما نلمس كوده.
         primary: {
-          DEFAULT: "#2563EB", // blue-600 — نفس لون الروابط النشطة وزر الـ CTA
-          dark: "#1D4ED8",
+          DEFAULT: "#1B1B3A", // كحلي غامق دافئ — بدل blue-600 الافتراضي
+          dark: "#12122A",
         },
-        accent: "#F59E0B", // أمبر — يُستخدم كبديل CTA أو للعروض/التخفيضات
-        surface: "#FFFFFF",
+        accent: "#E8A94C", // ذهبي دافئ — يرمز للإنجاز والشهادات، بدل الأمبر العادي
+        secondary: "#2A9D8F", // تركواز — لتمييز عناصر "المدرس" لاحقاً (Navbar role icon مثلاً)
+        surface: "#FBF9F6", // أبيض دافئ (مو أبيض ناصع) — أريح للعين بصفحات القراءة الطويلة
       },
       fontFamily: {
         display: ["Cairo", "sans-serif"], // خط العناوين (يدعم العربية جيداً)
@@ -20,4 +23,5 @@ export default{
   },
   // يضيف كلاسات logical إضافية (ms-/me-) — Tailwind الحديث يدعم start/end/ps/pe مباشرة أيضاً
   plugins: [],
+
 };

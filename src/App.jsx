@@ -4,12 +4,11 @@ import PublicLayout from "./component/common/layout/PublicLayout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import "./index.css"
-
+ 
 // ملاحظة: DashboardLayout و AdminLayout ما انضافوش هون بعد لأن صفحاتهم
 // (Student/Instructor/Admin dashboards) لسه ما انبنتش. رح نضيفهم كـ
 // <Route path="/dashboard" element={<DashboardLayout .../>}> لما تجهز.
-
+ 
 export default function App() {
   return (
     <AuthProvider>
@@ -25,3 +24,4 @@ export default function App() {
     </AuthProvider>
   );
 }
+ 
