@@ -1,3 +1,4 @@
+
 /**
  * مكون زر موحد يُستخدم بكل أنحاء المشروع (Navbar, Forms, Dashboards...)
  * بدل ما نكرر نفس كلاسات Tailwind بكل مكان.
@@ -37,14 +38,16 @@ export default function Button({
 }) {
   const isDisabled = disabled || loading;
  
+  const baseClasses = `inline-flex items-center justify-center gap-2 rounded-lg font-medium transition
+    duration-200 hover:scale-[1.03] active:scale-[0.97]
+    disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100`;
+ 
   return (
     <button
       type={type}
       onClick={onClick}
       disabled={isDisabled}
-      className={`inline-flex items-center justify-center gap-2 rounded-lg font-medium transition
-        disabled:cursor-not-allowed disabled:opacity-60
-        ${VARIANTS[variant]} ${SIZES[size]} ${className}`}
+      className={`${baseClasses} ${VARIANTS[variant]} ${SIZES[size]} ${className}`}
       {...rest}
     >
       {loading && (
