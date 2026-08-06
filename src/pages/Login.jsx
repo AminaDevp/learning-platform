@@ -158,9 +158,9 @@ export default function Login() {
             </button>
             <button
               type="button"
-              onClick={() => setRole("teacher")}
+              onClick={() => setRole("instructor")}
               className={`relative z-10 flex-1 py-2.5 text-sm font-bold transition-colors ${
-                role === "teacher" ? "text-slate-900" : "text-slate-600 hover:text-slate-900"
+                role === "instructor" ? "text-slate-900" : "text-slate-600 hover:text-slate-900"
               }`}
             >
               مدرس
@@ -171,7 +171,7 @@ export default function Login() {
               className="absolute inset-y-1.5 rounded-xl bg-white shadow-md"
               initial={false}
               animate={{
-                x: role === "student" ? "0%" : "-100%",
+                x: role === "student" ? "0%" : "100%",
                 width: "48%",
               }}
               transition={{ type: "spring", stiffness: 400, damping: 35 }}

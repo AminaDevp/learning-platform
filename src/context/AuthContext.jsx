@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+/*import { createContext, useContext, useState } from "react";
  
 // الأدوار الممكنة: "guest" | "student" | "instructor" | "admin"
 const AuthContext = createContext(null);
@@ -28,6 +28,33 @@ export function AuthProvider({ children }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
  
+export function useAuth() {
+  const ctx = useContext(AuthContext);
+  if (!ctx) throw new Error("useAuth يجب أن يُستخدم داخل AuthProvider");
+  return ctx;
+}*/
+import { createContext, useContext, useState } from "react";
+
+const AuthContext = createContext(null);
+
+
+export function AuthProvider({ children }) {
+ const [user, setUser] = useState(null); // null = guest
+  const login = (role = "student") => setUser({ name: "مستخدم تجريبي", role });
+  const logout = () => setUser(null);
+
+  const value = {
+    user,
+    role: user?.role || "guest",
+    isAuthenticated: Boolean(user),
+    setUser,   // ← هذا هو المهم لصفحة Register يلي بعتها
+    login,
+    logout,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}
+
 export function useAuth() {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error("useAuth يجب أن يُستخدم داخل AuthProvider");

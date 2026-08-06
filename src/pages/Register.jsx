@@ -1,5 +1,5 @@
  import { useState } from "react";
-import { Link } from "react-router-dom";
+ import { useNavigate ,Link} from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   UserIcon,
@@ -12,8 +12,11 @@ import {
   CheckCircleIcon,
 } from "@heroicons/react/24/outline";
 import Button from "../component/common/Button";
+import { useAuth } from "../context/AuthContext";
 
 export default function Register() {
+  const navigate = useNavigate();
+  const { setUser } = useAuth();
   const [role, setRole] = useState("student"); // "student" | "teacher"
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -28,7 +31,15 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitting registration:", { ...formData, role });
+    // 1. Store user state with selected role
+    setUser({
+      name: formData.name,
+      email: formData.email,
+      role: role,
+    });
+
+    // 2. Navigate to dashboard after submission
+    navigate("/dashboard");
   };
 
   return (

@@ -73,6 +73,7 @@ export default function Navbar() {
   }, []);
 
   const roleConfig = ROLE_MENU[role];
+  const IconComponent = roleConfig?.icon;
 
   return (
     <>
@@ -134,7 +135,7 @@ export default function Navbar() {
                   onClick={() => setMenuOpen((o) => !o)}
                   className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-medium text-gray-800 hover:bg-gray-100"
                 >
-                  <roleConfig.icon className="h-6 w-6 text-blue-600" />
+                 {IconComponent && <IconComponent className="h-6 w-6 text-blue-600" />}
                   <span>{user?.name}</span>
                   <ChevronDownIcon
                     className={`h-4 w-4 transition-transform ${menuOpen ? "rotate-180" : ""}`}
