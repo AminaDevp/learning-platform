@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import DashboardRoute from "./component/common/DashboardRoute";
 import DashboardHome from "./pages/dashboard/DashboardHome";
 import AdminRoute from "./component/common/AdminRoute";
+import Courses from "./pages/Courses";
 // Admin Sub-Views (Placeholders or imports)
 const AdminCourses = () => <div className="p-4 bg-white rounded-xl shadow">إدارة الكورسات</div>;
 const AdminInstructors = () => <div className="p-4 bg-white rounded-xl shadow">إدارة المدرسين</div>;
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/courses" element={<Courses />} />
           </Route> 
 
           {/* Standalone Auth Pages (No Navbar/Footer) */}
