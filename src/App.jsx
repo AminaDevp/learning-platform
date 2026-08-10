@@ -10,9 +10,17 @@ import DashboardRoute from "./component/common/DashboardRoute";
 import DashboardHome from "./pages/dashboard/DashboardHome";
 import AdminRoute from "./component/common/AdminRoute";
 import Courses from "./pages/Courses";
+import CourseDetail from "./pages/CourseDetail";
+import AdminLogin from "./pages/AdminLogin";
+import AdminInstructors from "./pages/admin/AdminInstructors";
+import AdminCourses from "./pages/admin/AdminCourses";
+import InstructorProfile from "./pages/dashboard/InstructorProfile";
+import SuggestCourse from "./pages/dashboard/SuggestCours";
+import AdminSuggestions from "./pages/admin/AdminSuggestions";
+import InstructorApply from "./pages/InstructorApply";
+import InstructorPending from "./pages/InstructorPending";
+
 // Admin Sub-Views (Placeholders or imports)
-const AdminCourses = () => <div className="p-4 bg-white rounded-xl shadow">إدارة الكورسات</div>;
-const AdminInstructors = () => <div className="p-4 bg-white rounded-xl shadow">إدارة المدرسين</div>;
 const AdminStudents = () => <div className="p-4 bg-white rounded-xl shadow">إدارة الطلاب</div>;
 const AdminSettings = () => <div className="p-4 bg-white rounded-xl shadow">إعدادات النظام</div>;
 export default function App() {
@@ -26,11 +34,13 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/courses" element={<Courses />} />
+            <Route path="/courses/:id" element={<CourseDetail />} />
           </Route> 
 
           {/* Standalone Auth Pages (No Navbar/Footer) */}
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
 
           {/* Protected Dashboard Routes */}
           <Route path="/dashboard" element={<DashboardRoute />}>
@@ -38,14 +48,21 @@ export default function App() {
             <Route path="courses" element={<div>الكورسات</div>} />
             <Route path="students" element={<div>الطلاب</div>} />
             <Route path="schedule" element={<div>الجدول</div>} />
+            <Route path="profile" element={<InstructorProfile />} />
+            <Route path="suggest-course" element={<SuggestCourse />} />
           </Route>
-{/* Admin Protected Routes */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+
+         <Route path="/instructor/apply" element={<InstructorApply />} />
+         <Route path="/instructor/pending" element={<InstructorPending />} />
+         {/* Admin Protected Routes */}
       <Route path="/admin" element={<AdminRoute />}>
         <Route index element={<DashboardHome />} />
         <Route path="courses" element={<AdminCourses />} />
         <Route path="instructors" element={<AdminInstructors />} />
         <Route path="students" element={<AdminStudents />} />
         <Route path="settings" element={<AdminSettings />} />
+        <Route path="suggestions" element={<AdminSuggestions />} />
         </Route>
         </Routes>
       </BrowserRouter>

@@ -7,6 +7,7 @@ import {
   UsersIcon,
   AcademicCapIcon,
   Cog6ToothIcon,
+  LightBulbIcon,
 } from "@heroicons/react/24/outline";
 import { useAuth } from "../../../context/AuthContext";
 
@@ -15,6 +16,7 @@ const ADMIN_LINKS = [
   { to: "/admin/instructors", label: "المدرسين", icon: AcademicCapIcon },
   { to: "/admin/students", label: "الطلاب", icon: UsersIcon },
   { to: "/admin/settings", label: "الإعدادات", icon: Cog6ToothIcon },
+  { to: "/admin/suggestions", label: "اقتراحات المدرسين", icon: LightBulbIcon },
 ];
 
 export default function AdminLayout() {

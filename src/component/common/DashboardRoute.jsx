@@ -10,21 +10,40 @@ const STUDENT_LINKS = [
 
 const INSTRUCTOR_LINKS = [
   { to: "/dashboard", label: "الرئيسية" },
+  { to: "/dashboard/profile", label: "ملفي الشخصي" },
   { to: "/dashboard/students", label: "طلابي" },
   { to: "/dashboard/schedule", label: "جدولي" },
+  { to: "/dashboard/suggest-course", label: "اقترح كورس" },
 ];
 
 export default function DashboardRoute() {
   const { user } = useAuth();
   const isInstructor = user?.role === "teacher" || user?.role === "instructor";
 
+  // 1. إذا لم يكن مسجل دخول، توجيه لصفحة تسجيل الدخول
   if (!user) {
     return <Navigate to="/login" replace />;
   }
-// If user is Admin, redirect to the Admin Control Panel
-  if (user.role === "admin") {
+
+  // 2. إذا كان أدمن، توجيه للوحة الأدمن
+  if (user.role === "admin" || user.role === "super_admin") {
     return <Navigate to="/admin" replace />;
   }
+
+  // 3. حماية مسار المدرس بناءً على حالة الحساب (status)
+  if (isInstructor) {
+    // إذا سجل ولم يكمل النموذج بعد
+    if (user.status === "incomplete" || user.status === "pending_application") {
+      return <Navigate to="/instructor/apply" replace />;
+    }
+
+    // إذا ملأ النموذج والطلب قيد المراجعة من الأدمن
+    if (user.status === "pending") {
+      return <Navigate to="/instructor/pending" replace />;
+    }
+  }
+
+  // 4. إذا كان المدرس مقبولاً (active) أو كان طالباً، افتح Dashboard العادية
   return (
     <DashboardLayout
       sidebarLinks={isInstructor ? INSTRUCTOR_LINKS : STUDENT_LINKS}

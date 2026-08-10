@@ -1,5 +1,5 @@
- import { useState } from "react";
- import { useNavigate ,Link} from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   UserIcon,
@@ -8,7 +8,6 @@ import {
   EyeIcon,
   EyeSlashIcon,
   AcademicCapIcon,
-  UserGroupIcon,
   CheckCircleIcon,
 } from "@heroicons/react/24/outline";
 import Button from "../component/common/Button";
@@ -19,29 +18,49 @@ export default function Register() {
   const { setUser } = useAuth();
   const [role, setRole] = useState("student"); // "student" | "teacher"
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
+
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (error) setError(""); // Clear error when user types
   };
 
-  const handleSubmit = (e) => {
+ const handleSubmit = (e) => {
     e.preventDefault();
-    // 1. Store user state with selected role
-    setUser({
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("كلمتا المرور غير متطابقتين");
+      return;
+    }
+
+    const newUser = {
       name: formData.name,
       email: formData.email,
-      role: role,
-    });
+      role: role, // "student" | "teacher"
+      status: role === "teacher" ? "pending_application" : "active",
+    };
 
-    // 2. Navigate to dashboard after submission
-    navigate("/dashboard");
+    // Save to context and localStorage
+    setUser(newUser);
+    localStorage.setItem("user", JSON.stringify(newUser));
+
+    // Redirect based on role
+    if (role === "teacher") {
+      navigate("/instructor/apply", { replace: true });
+    } else {
+      navigate("/dashboard", { replace: true });
+    }
   };
-
+  
   return (
     <div className="flex min-h-screen bg-slate-50 font-sans">
       {/* ---------------- LEFT SIDE: VISUAL BANNER ---------------- */}
@@ -200,6 +219,13 @@ export default function Register() {
             />
           </div>
 
+          {/* Error Message */}
+          {error && (
+            <div className="rounded-xl bg-rose-50 p-3 text-center text-sm font-medium text-rose-600 border border-rose-200">
+              {error}
+            </div>
+          )}
+
           {/* Registration Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
             
@@ -263,6 +289,36 @@ export default function Register() {
                   className="absolute end-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
                 >
                   {showPassword ? (
+                    <EyeSlashIcon className="h-5 w-5" />
+                  ) : (
+                    <EyeIcon className="h-5 w-5" />
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Confirm Password */}
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-1.5">
+                تأكيد كلمة المرور
+              </label>
+              <div className="relative">
+                <LockClosedIcon className="pointer-events-none absolute start-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  required
+                  placeholder="••••••••"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  className="w-full rounded-2xl border border-slate-200 bg-white py-3 pe-11 ps-11 text-sm text-slate-900 placeholder-slate-400 outline-none transition-all focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute end-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                >
+                  {showConfirmPassword ? (
                     <EyeSlashIcon className="h-5 w-5" />
                   ) : (
                     <EyeIcon className="h-5 w-5" />

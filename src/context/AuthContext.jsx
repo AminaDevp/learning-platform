@@ -37,20 +37,27 @@ import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext(null);
 
-
 export function AuthProvider({ children }) {
  const [user, setUser] = useState(null); // null = guest
   const login = (role = "student") => setUser({ name: "مستخدم تجريبي", role });
   const logout = () => setUser(null);
+  const loginAsAdmin = ({ username, department }) => {
+  setUser({ name: username, role: "admin", department });
+};
 
-  const value = {
-    user,
-    role: user?.role || "guest",
-    isAuthenticated: Boolean(user),
-    setUser,   // ← هذا هو المهم لصفحة Register يلي بعتها
-    login,
-    logout,
-  };
+
+  // وأضف loginAsAdmin لكائن value:
+const value = {
+  user,
+  role: user?.role || "guest",
+  department: user?.department || null,   // "برمجة" أو "انجليزي" — بس للأدمن
+  isAuthenticated: Boolean(user),
+  setUser,
+  login,
+  loginAsAdmin,   // ← جديد
+  logout,
+};
+
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
