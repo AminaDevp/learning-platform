@@ -19,10 +19,11 @@ import SuggestCourse from "./pages/dashboard/SuggestCours";
 import AdminSuggestions from "./pages/admin/AdminSuggestions";
 import InstructorApply from "./pages/InstructorApply";
 import InstructorPending from "./pages/InstructorPending";
+import StudentCoursesView from "./pages/student/StudentCoursesView";
+import AdminStudents from "./pages/admin/AdminStudents";
+import AdminSettings from "./pages/admin/AdminSettings";
 
-// Admin Sub-Views (Placeholders or imports)
-const AdminStudents = () => <div className="p-4 bg-white rounded-xl shadow">إدارة الطلاب</div>;
-const AdminSettings = () => <div className="p-4 bg-white rounded-xl shadow">إعدادات النظام</div>;
+
 export default function App() {
   return (
     <AuthProvider>
@@ -45,7 +46,7 @@ export default function App() {
           {/* Protected Dashboard Routes */}
           <Route path="/dashboard" element={<DashboardRoute />}>
             <Route index element={<DashboardHome />} />
-            <Route path="courses" element={<div>الكورسات</div>} />
+            <Route path="courses" element={<StudentCoursesView />} />
             <Route path="students" element={<div>الطلاب</div>} />
             <Route path="schedule" element={<div>الجدول</div>} />
             <Route path="profile" element={<InstructorProfile />} />
@@ -64,6 +65,7 @@ export default function App() {
         <Route path="settings" element={<AdminSettings />} />
         <Route path="suggestions" element={<AdminSuggestions />} />
         </Route>
+    
         </Routes>
       </BrowserRouter>
     </AuthProvider>

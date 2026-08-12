@@ -23,9 +23,13 @@ export default function InstructorApply() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitting(true);
+    // TODO: استبدال بـ POST /api/instructor/apply حقيقي — هذا هو
+    // الرابط الحقيقي بين تسجيل المدرس وقائمة الأدمن: الطلب لازم يتخزن
+    // بقاعدة البيانات بحالة "pending"، وGET /api/admin/instructor-applications
+    // (اللي AdminInstructors.jsx رح يستخدمه) لازم يرجع نفس الطلب.
 
     setTimeout(() => {
-      // تحديث حالة حساب المدرس إلى pending
+      // الحساب يبقى "pending" — ما ينزل لـ "active" لحد ما الأدمن يوافق
       const updatedUser = {
         ...user,
         status: "pending",
