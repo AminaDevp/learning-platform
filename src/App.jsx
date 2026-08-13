@@ -22,6 +22,9 @@ import InstructorPending from "./pages/InstructorPending";
 import StudentCoursesView from "./pages/student/StudentCoursesView";
 import AdminStudents from "./pages/admin/AdminStudents";
 import AdminSettings from "./pages/admin/AdminSettings";
+import InstructorSchedule from "./pages/dashboard/InstructorSchedule";
+
+import InstructorStudents from "./pages/dashboard/InstructorStudents";
 
 
 export default function App() {
@@ -47,8 +50,8 @@ export default function App() {
           <Route path="/dashboard" element={<DashboardRoute />}>
             <Route index element={<DashboardHome />} />
             <Route path="courses" element={<StudentCoursesView />} />
-            <Route path="students" element={<div>الطلاب</div>} />
-            <Route path="schedule" element={<div>الجدول</div>} />
+            <Route path="students" element={<InstructorStudents/>} />
+            <Route path="schedule" element={<InstructorSchedule/>} />
             <Route path="profile" element={<InstructorProfile />} />
             <Route path="suggest-course" element={<SuggestCourse />} />
           </Route>
